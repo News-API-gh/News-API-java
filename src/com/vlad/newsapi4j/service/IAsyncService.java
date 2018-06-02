@@ -91,7 +91,7 @@ public interface IAsyncService {
 	 * @param sortBy
 	 * @return
 	 */
-	IAsyncService sortBy(String sortBy);
+	IAsyncService sortBy(SortBy sortBy);
 
 	/**
 	 * Sets the country of origin <br>

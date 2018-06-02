@@ -84,7 +84,7 @@ public interface IService {
 	 * @param sortBy
 	 * @return
 	 */
-	IService sortBy(String sortBy);
+	IService sortBy(SortBy sortBy);
 
 	/**
 	 * Sets the country of origin <br>

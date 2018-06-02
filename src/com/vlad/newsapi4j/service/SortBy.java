@@ -1,11 +1,19 @@
 package com.vlad.newsapi4j.service;
 
-public interface SortBy {
+/**
+ * Indicates the response sort order
+ */
+public enum SortBy {
 
-	String	RELEVANCE	= "relevance";
+    RELEVANCE,
 
-	String	POPULARITY	= "popularity";
+	POPULARITY,
 
-	String	DATE		= "date";
+	DATE;
+	
+	public String toLink() {
+		return this.name().toLowerCase();
+	}
+	
 
 }
