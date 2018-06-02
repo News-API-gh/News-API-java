@@ -1,11 +1,13 @@
 package com.vlad.newsapi4j.client;
 
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import com.vlad.newsapi4j.response.APIResponse;
 import com.vlad.newsapi4j.service.Endpoint;
 import com.vlad.newsapi4j.service.IAsyncService;
+import com.vlad.newsapi4j.service.SortBy;
 import com.vlad.newsapi4j.utils.Callback;
 import com.vlad.newsapi4j.utils.Category;
 import com.vlad.newsapi4j.utils.DateRange;
@@ -44,7 +46,7 @@ class StandartAsyncService implements IAsyncService {
 	}
 
 	@Override
-	public IAsyncService sortBy(String sortBy) {
+	public IAsyncService sortBy(SortBy sortBy) {
 		stdService.sortBy(sortBy);
 		return this;
 	}
@@ -98,8 +100,8 @@ class StandartAsyncService implements IAsyncService {
 
 	@Override
 	public IAsyncService dateRange(Supplier<DateRange> range) {
-		// TODO Auto-generated method stub
-		return null;
+		stdService.dateRange(range);
+		return this;
 	}
 
 

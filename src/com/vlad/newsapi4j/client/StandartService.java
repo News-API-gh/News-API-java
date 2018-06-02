@@ -10,6 +10,7 @@ import com.vlad.newsapi4j.access.APIConnection;
 import com.vlad.newsapi4j.response.APIResponse;
 import com.vlad.newsapi4j.service.Endpoint;
 import com.vlad.newsapi4j.service.IService;
+import com.vlad.newsapi4j.service.SortBy;
 import com.vlad.newsapi4j.utils.Category;
 import com.vlad.newsapi4j.utils.DateRange;
 import com.vlad.newsapi4j.utils.LinkBuilder;
@@ -53,7 +54,7 @@ class StandartService implements IService {
 	}
 
 	@Override
-	public IService sortBy(String sortBy) {
+	public IService sortBy(SortBy sortBy) {
 		link.sortBy(sortBy);
 		return this;
 	}
@@ -85,7 +86,7 @@ class StandartService implements IService {
 		/**
 		 * Connect to NewsAPI
 		 */
-		System.out.println(link);
+		System.out.println("Sending API request to ["+link+"]...");
 		String content = new APIConnection(link).getContents();
 		int totalResults = APIResponse.INFORMATION_UNAVAILABLE;
 		JSONObject obj = null;
@@ -94,10 +95,8 @@ class StandartService implements IService {
 			// System.out.println(obj);
 		} catch (JSONException e1) {
 			// throw new NewsAPIException("Something went wrong while parsing json");
-			e1.printStackTrace();
 		}
 
-		System.out.println(link);
 		ResponseStatus status = ResponseStatus.OK;
 		/**
 		 * Returns at least an empty string, not null
@@ -119,7 +118,7 @@ class StandartService implements IService {
 			} catch (JSONException e) {
 				throw new NewsAPIException("Something went wrong while parsing json");
 			}
-		return new Response(endpoint, content, status, totalResults);
+		return new ResponseImpl(endpoint, content, status, totalResults);
 	}
 
 	@Override
@@ -143,7 +142,7 @@ class StandartService implements IService {
 	}
 
 	@Override
-	public IService range(Supplier<DateRange> range) {
+	public IService dateRange(Supplier<DateRange> range) {
 		link.from(range.get().getFrom());
 		link.to(range.get().getTo());
 		return this;
