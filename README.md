@@ -1,4 +1,4 @@
-# News API SDK for Java
+# NewsAPI SDK for Java
 
 
 **How to use**
@@ -7,11 +7,11 @@
 
 
 
-1.Create the client object
+**1**.Create the client object
 ```java
 NewsApiClient client = new NewsApiClient("YOUR_API_KEY_HERE");
 ```
-2.Create the service you require (sources / everything / top headlines)
+**2**.Create the service you require (sources / everything / top headlines)
 
 *Example: get the top headlines from the united states using an asynchronous service*
 
@@ -44,7 +44,7 @@ List<NewsSource> newsSources = response.viewAsNewsSources().orElseGet(Collection
 
 **Creating your own service**
 
-1.Create a class and implement either ```IService``` or ```IAsyncService``` if you want either synchronous or asynchronous execution
+**1**.Create a class and implement either ```IService``` or ```IAsyncService``` if you want either synchronous or asynchronous execution
 
 *Example:*
 ```java
@@ -53,7 +53,7 @@ Remainder omitted...
 }
 ```
 
-2.Create the service using the ```NewsApiClient``` object
+**2**.Create the service using the ```NewsApiClient``` object
 
 *Example: query all the headlines in english with keyword 'Youtube' from the last 7 days*
 
