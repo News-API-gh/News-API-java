@@ -145,7 +145,7 @@ public interface IService {
 	 * @param range
 	 * @return
 	 */
-	IService range(java.util.function.Supplier<DateRange> range);
+	IService dateRange(java.util.function.Supplier<DateRange> range);
 
 	/**
 	 * Sends the request to the newsapi server and returns the result <br>

@@ -6,12 +6,17 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 import com.vlad.newsapi4j.service.Endpoint;
+import com.vlad.newsapi4j.service.SortBy;
 
+/**
+ * Utility class used for building the request link for NewsAPI
+ *
+ */
 public class LinkBuilder {
 
-	public static final String	NEWSAPI_LINK	= "https://newsapi.org/v2/";
+	public static final String	NEWSAPI_LINK_V2	= "https://newsapi.org/v2/";
 
-	private StringBuilder		current			= new StringBuilder(NEWSAPI_LINK);
+	private StringBuilder		current			= new StringBuilder(NEWSAPI_LINK_V2);
 	private boolean				firstAddition	= true;
 
 	private Endpoint			endPoint;
@@ -38,6 +43,8 @@ public class LinkBuilder {
 	}
 
 	public LinkBuilder category(String category) {
+		if(endPoint == Endpoint.EVERYTHING)
+			throw new NewsAPIRuntimeException("The category param is not currently supported on the /everything endpoint");
 		addTag("category");
 		current.append(category);
 		return this;
@@ -87,9 +94,9 @@ public class LinkBuilder {
 		return this;
 	}
 
-	public LinkBuilder sortBy(String sortBy) {
+	public LinkBuilder sortBy(SortBy sortBy) {
 		addTag("sortBy");
-		current.append(sortBy);
+		current.append(sortBy.toLink());
 		return this;
 	}
 
@@ -110,7 +117,7 @@ public class LinkBuilder {
 		int mm = c.get(Calendar.MONTH) + 1;
 		addTag("from");
 		current.append(yy).append('-').append((String.valueOf(mm).length() != 2 ? "0" : "") + mm).append('-').append(
-		        String.valueOf(dd).length() != 2 ? "0" : "" + dd);
+		        (String.valueOf(dd).length() != 2 ? "0" : "") + dd);
 		return this;
 	}
 
@@ -122,7 +129,7 @@ public class LinkBuilder {
 		int mm = c.get(Calendar.MONTH) + 1;
 		addTag("to");
 		current.append(yy).append('-').append((String.valueOf(mm).length() != 2 ? "0" : "") + mm).append('-').append(
-		        String.valueOf(dd).length() != 2 ? "0" : "" + dd);
+		        (String.valueOf(dd).length() != 2 ? "0" : "") + dd);
 		return this;
 	}
 
