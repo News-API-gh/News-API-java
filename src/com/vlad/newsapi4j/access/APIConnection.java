@@ -14,6 +14,10 @@ public class APIConnection {
 		this.fromWhere = link.toString();
 	}
 
+	public APIConnection(String linkRaw) {
+		this.fromWhere = linkRaw;
+	}
+
 	private String fromWhere;
 
 	public String getContents() {
