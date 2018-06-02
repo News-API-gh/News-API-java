@@ -116,6 +116,17 @@ public interface IAsyncService {
 	 * @return
 	 */
 	IAsyncService page(int page);
+	
+	/**
+	 * Sets the lookup page size <br>
+	 * I.E the amount of articles requested<br>
+	 * 
+	 * For more information, visit NewsAPI's official website<b>
+	 * <a href="https://newsapi.org/docs"> here </a> </b>
+	 * @param pageSize
+	 * @return this
+	 */
+	IAsyncService pageSize(int pageSize);
 
 	/**
 	 * Sets the 'to' date <br>

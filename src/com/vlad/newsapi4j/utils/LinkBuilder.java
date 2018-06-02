@@ -49,6 +49,12 @@ public class LinkBuilder {
 		current.append(category);
 		return this;
 	}
+	
+	public LinkBuilder pageSize(int pageSize) {
+		addTag("pageSize");
+		current.append(pageSize);
+		return this;
+	}
 
 	private void addTag(String tag) {
 		if (firstAddition) {

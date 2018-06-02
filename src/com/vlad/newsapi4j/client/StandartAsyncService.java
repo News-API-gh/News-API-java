@@ -1,7 +1,6 @@
 package com.vlad.newsapi4j.client;
 
 import java.util.Date;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import com.vlad.newsapi4j.response.APIResponse;
@@ -101,6 +100,12 @@ class StandartAsyncService implements IAsyncService {
 	@Override
 	public IAsyncService dateRange(Supplier<DateRange> range) {
 		stdService.dateRange(range);
+		return this;
+	}
+
+	@Override
+	public IAsyncService pageSize(int pageSize) {
+		stdService.pageSize(pageSize);
 		return this;
 	}
 

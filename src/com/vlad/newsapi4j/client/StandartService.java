@@ -148,4 +148,10 @@ class StandartService implements IService {
 		return this;
 	}
 
+	@Override
+	public IService pageSize(int pageSize) {
+		link.pageSize(pageSize);
+		return this;
+	}
+
 }
