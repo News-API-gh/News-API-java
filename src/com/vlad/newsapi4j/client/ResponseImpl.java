@@ -11,7 +11,7 @@ import com.vlad.newsapi4j.response.APIResponse;
 import com.vlad.newsapi4j.service.Endpoint;
 import com.vlad.newsapi4j.utils.ResponseStatus;
 
-public class Response implements APIResponse {
+public class ResponseImpl implements APIResponse {
 
 	private ResponseStatus		status;
 	private int					totalRes;
@@ -19,7 +19,7 @@ public class Response implements APIResponse {
 	private List<JSONObject>	list;
 	private Endpoint			endpoint;
 
-	public Response(Endpoint reqType, String content, ResponseStatus status, int totalRes) {
+	public ResponseImpl(Endpoint reqType, String content, ResponseStatus status, int totalRes) {
 		this.totalRes = totalRes;
 		this.status = status;
 		List<JSONObject> dataActual = new ArrayList<>();
@@ -29,9 +29,7 @@ public class Response implements APIResponse {
 			for (int i = 0; i < jsonData.length(); i++) {
 				dataActual.add(jsonData.getJSONObject(i));
 			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (JSONException ignored) {
 		}
 		this.list = dataActual;
 		this.endpoint = reqType;
@@ -48,7 +46,7 @@ public class Response implements APIResponse {
 	}
 
 	@Override
-	public JSONObject getJSON() {
+	public JSONObject getResponseRaw() {
 		return content;
 	}
 
