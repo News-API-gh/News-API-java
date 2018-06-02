@@ -1,19 +1,21 @@
 package com.vlad.newsapi4j.examples;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vlad.newsapi4j.access.APIConnection;
 import com.vlad.newsapi4j.client.NewsApiClient;
-import com.vlad.newsapi4j.client.Response;
+import com.vlad.newsapi4j.client.ResponseImpl;
 import com.vlad.newsapi4j.model.Article;
 import com.vlad.newsapi4j.response.APIResponse;
 import com.vlad.newsapi4j.service.Endpoint;
 import com.vlad.newsapi4j.service.IAsyncService;
+import com.vlad.newsapi4j.service.SortBy;
 import com.vlad.newsapi4j.utils.Callback;
 import com.vlad.newsapi4j.utils.Category;
 import com.vlad.newsapi4j.utils.DateRange;
@@ -28,22 +30,18 @@ public class Custom {
 		client.newCustomAsyncService(new MyCustomAsyncService(), Endpoint.EVERYTHING)
 		      .withKeyword("Youtube")
 		      .language("en")
+		      .pageSize(100)
 		      /**
 		       * I HAD to break convention (All caps methods and all that), just look at how beautiful this looks
 		       */
 		      .dateRange(DateRange::LAST_7_DAYS)
 		      .send(result -> {
 			        System.out.println("Result matches : " + result.totalResults());
-			        /**
-			         * Find the first article that has an author ?
-			         */
-			        Article a = result.viewAsArticles()
-			        		          .get()
-			        		          .stream()
-			        		          .filter(article -> article.getAuthor() != null)
-			        		          .findFirst()
-			        		          .orElse(null);
-			        System.out.println(a);
+			        
+			        List<Article> articles = result.viewAsArticles().orElseGet(Collections::emptyList);
+			        
+			        //Print the articles 
+			        articles.forEach(System.out::println);
 		        }, Throwable::printStackTrace);
 
 	}
@@ -91,7 +89,7 @@ public class Custom {
 		}
 
 		@Override
-		public IAsyncService sortBy(String sortBy) {
+		public IAsyncService sortBy(SortBy sortBy) {
 			link.sortBy(sortBy);
 			return this;
 		}
@@ -172,7 +170,7 @@ public class Custom {
 					} catch (JSONException e) {
 						onError.invoke(new NewsAPIException("Something went wrong while parsing json"));
 					}
-				result.invoke(new Response(endpoint, content, status, totalRes));
+				result.invoke(new ResponseImpl(endpoint, content, status, totalRes));
 			}).start();
 		}
 
@@ -180,6 +178,12 @@ public class Custom {
 		public IAsyncService dateRange(Supplier<DateRange> range) {
 			this.link.from(range.get().getFrom());
 			this.link.to(range.get().getTo());
+			return this;
+		}
+
+		@Override
+		public IAsyncService pageSize(int pageSize) {
+			this.link.pageSize(pageSize);
 			return this;
 		}
 

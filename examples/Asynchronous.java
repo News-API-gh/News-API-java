@@ -17,7 +17,7 @@ public class Asynchronous {
 		 * Get the top headlines in the us today, sort them by date, show the first page(optional it's 1 by default)
 		 */
 		client.newTopHeadlinesServiceAsync()
-		      .country("bg")
+		      .country("us")
 		      .from(new Date())
 		      .sortBy(SortBy.DATE)
 		      .page(1)
@@ -34,7 +34,7 @@ public class Asynchronous {
 		    	   */
 		    	  articles.stream()
 //		    	          .filter(article -> article.getAuthor().startsWith("A"))
-		    	          .forEach(article -> System.out.println(article.getDescription()));
+		    	          .forEach(System.out::println);
 		    	  
 		      }, 	 /**
 		    		   * We are here, something went wrong, just print the cause
