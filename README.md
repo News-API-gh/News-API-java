@@ -1,9 +1,9 @@
 # News API SDK for Java
 
 
-How to use
+**How to use**
 
-0.Download the latest release here : https://github.com/VIad/News-API-java/releases and add the jar to your build path
+**0**.Download the latest release here : https://github.com/VIad/News-API-java/releases and add the jar to your build path
 
 
 
@@ -13,7 +13,7 @@ NewsApiClient client = new NewsApiClient("YOUR_API_KEY_HERE");
 ```
 2.Create the service you require (sources / everything / top headlines)
 
-Example: get the top headlines from the united states using an asynchronous service
+*Example: get the top headlines from the united states using an asynchronous service*
 
 ```java
 client.newTopHeadlinesServiceAsync()
@@ -26,9 +26,9 @@ client.newTopHeadlinesServiceAsync()
             error -> System.err.println(error.getMessage()));
 ```
 
-You can also use a non-async flow and store the response in an ```APIResponse``` object
+**You can also use a non-async flow and store the response in an ```APIResponse``` object**
 
-Example: get the news sources using a keyword and sort them by popularity
+*Example: get the news sources using a keyword and sort them by popularity*
 ```java
 APIResponse response = client.newSourcesService()
                              .withKeyword("bulgaria")
@@ -42,11 +42,11 @@ List<NewsSource> newsSources = response.viewAsNewsSources().orElseGet(Collection
 //Do some processing on the news sources
 ```
 
-Creating your own service
+**Creating your own service**
 
 1.Create a class and implement either ```IService``` or ```IAsyncService``` if you want either synchronous or asynchronous execution
 
-Example:
+*Example:*
 ```java
 public class MyCustomAsyncService implements IAsyncService{
 Remainder omitted...
@@ -55,7 +55,7 @@ Remainder omitted...
 
 2.Create the service using the ```NewsApiClient``` object
 
-Example: query all the headlines in english with keyword 'Youtube' from the last 7 days
+*Example: query all the headlines in english with keyword 'Youtube' from the last 7 days*
 
 ```java
 client.newCustomAsyncService(new MyCustomAsyncService(), /*Specify an endpoint for your service*/ Endpoint.EVERYTHING)
